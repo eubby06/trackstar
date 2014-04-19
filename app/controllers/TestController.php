@@ -13,7 +13,7 @@ class TestController extends Controller
 		foreach($users as $user)
 		{
 			echo 'username: ' . $user->username . '<br />';
-			$user->username = 'findme';
+			$user->username = 'findme2';
 			$user->update();
 			echo 'username: ' . $user->username . '<br />';
 		}
