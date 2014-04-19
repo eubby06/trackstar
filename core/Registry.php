@@ -49,7 +49,7 @@ class Registry
 		}
 	}
 
-	public function storeSettings( $setting, $key )
+	public function storeSetting( $setting, $key )
 	{
 		self::$_settings[ $key ] = $setting;
  	}
