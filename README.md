@@ -1,7 +1,7 @@
 
-# THIS IS FRAMEWORK IS UNDER DEVELOPMENT!
+## THIS IS FRAMEWORK IS UNDER DEVELOPMENT!
 
-## HOW TO USE MODEL
+### HOW TO USE MODEL
 
 #### Creating Class
 ```php
@@ -35,7 +35,7 @@ foreach($users as $user)
 ```
 
 
-## HOW TO USE QUERY OBJECT
+### HOW TO USE QUERY OBJECT
 #### Retrieving Records
 ```php
 $user = $q->select('*')
