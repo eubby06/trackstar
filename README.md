@@ -1,7 +1,9 @@
 
-# HOW TO USE MODEL
+# THIS IS FRAMEWORK IS UNDER DEVELOPMENT!
 
-#### CREATING MODEL
+## HOW TO USE MODEL
+
+#### Creating Class
 ```php
 class User extends \Core\Database\TSModelAbstract
 {
@@ -9,22 +11,22 @@ class User extends \Core\Database\TSModelAbstract
 }
 ```
 
-#### INITIALIZE NEW MODEL
+#### Initializing Model
 ```php
 $model = new User();
 ```
 
-#### FIND ALL 
+#### Finding All Records
 ```php
 $users = $model->findAll();
 ```
 
-#### SORTING COLLECTION BY COLUMN
+#### Sorting Collection By Column
 ```php
 $users = $users->sortBy('username');
 ```
 
-#### ARRAY COLLECTION
+#### Array Collection Object
 ```php
 foreach($users as $user)
 {
@@ -32,8 +34,9 @@ foreach($users as $user)
 }
 ```
 
-#### USING QUERY OBJECT
-#### GET RECORDS
+
+## HOW TO USE QUERY OBJECT
+#### Retrieving Records
 ```php
 $user = $q->select('*')
 		->from('users')
@@ -41,7 +44,7 @@ $user = $q->select('*')
 		->getAll();
 ```
 
-#### GET SINGLE RECORD
+#### Retrieving Single Record
 ```php
 $user = $q->select('*')
 		->from('users')
@@ -49,7 +52,7 @@ $user = $q->select('*')
 		->get();
 ```
 
-#### INSERT RECORD
+#### Inserting Record
 ```php
 $q->insert('users')
 	->data(array(
@@ -59,7 +62,7 @@ $q->insert('users')
 	->execute();
 ```
 
-#### UDPATE RECORD
+#### Updating Record
 ```php
 $q->update('users')
 	->set(array(
@@ -69,7 +72,7 @@ $q->update('users')
 	->execute();
 ```
 
-#### DELETE RECORD
+#### Deleting Record
 ```php
 $q->delete('users')
 	->where('id','=',1)
