@@ -34,12 +34,12 @@ $bannedUsers = $users->filter(function($user)
 });
 ```
 
-#### Array Collection Object
+#### Iterate Through a Collection Object
 ```php
-foreach($users as $user)
+$users->each(function($user)
 {
-	echo $user->username . '<br />';
-}
+	echo $user->username;
+});
 ```
 
 
