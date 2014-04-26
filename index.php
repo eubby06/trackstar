@@ -12,12 +12,54 @@ define('START_TIME', microtime(true));
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
 define('PATH_ROOT', dirname(__FILE__));
-define('PATH_APP', PATH_ROOT . DS . 'app');
-define('PATH_CORE', PATH_ROOT . DS . 'core');
-define('PATH_CACHE', PATH_ROOT . DS . 'cache');
-define('PATH_CONFIG', PATH_ROOT . DS . 'config');
-define('PATH_PLUGINS', PATH_ROOT . DS . 'plugins');
-define('PATH_SKINS', PATH_ROOT . DS . 'skins');
-define('PATH_UPLOADS', PATH_ROOT . DS . 'uploads');
+define('PATH_CORE', PATH_ROOT . DS . 'Core');
 
-require PATH_CORE . DS .'Bootstrap.php';
+require PATH_CORE . DS . 'Bootstrap.php';
+
+class User extends \Core\Database\TSModelAbstract
+{
+	protected $table = 'users';
+}
+
+$model = new User();
+
+$users = $model->findAll();
+
+$users = $users->sortBy('username');
+
+foreach($users as $user)
+{
+	echo $user->username . '<br />';
+}
+
+/*
+$user = $q->select('*')
+		->from('users')
+		->whereBetween('username', 10, 20)
+		->getAll();
+
+print_r($user);
+
+
+$q->insert('users')
+	->data(array(
+		'username' => 'eubby',
+		'password' => 'robs'
+		))
+	->execute();
+*/
+
+/*
+$q->update('users')
+	->set(array(
+		'username' => 'eubbynew'
+		))
+	->where('id','=',2)
+	->execute();
+*/
+
+/*
+$q->delete('users')
+	->where('id','=',1)
+	->execute();
+*/
