@@ -15,6 +15,10 @@ class User extends \Core\Database\TSModelAbstract
 ```php
 $model = new User();
 ```
+#### Finding a Single Record
+```php
+$user = $model->findById($id);
+```
 
 #### Finding All Records
 ```php
@@ -44,9 +48,15 @@ $users->each(function($user)
 
 
 ### HOW TO USE QUERY OBJECT
+
+#### Initializing Query
+```php
+$q = new \Core\Database\TSSQLQuery();
+```
+
 #### Retrieving Records
 ```php
-$user = $q->select('*')
+$users = $q->select('*')
 		->from('users')
 		->whereBetween('username', 10, 20)
 		->getAll();
