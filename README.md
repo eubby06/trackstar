@@ -26,6 +26,14 @@ $users = $model->findAll();
 $users = $users->sortBy('username');
 ```
 
+#### Filtering Collection By Callback
+```php
+$bannedUsers = $users->filter(function($user)
+{
+	return $user->isBanned();
+});
+```
+
 #### Array Collection Object
 ```php
 foreach($users as $user)

@@ -11,5 +11,5 @@ spl_autoload_extensions( '.php' );
 spl_autoload_register( 'Autoloader::load');
 
 // initialize service provider
-$serviceProvider = new \Core\serviceProvider();
+$serviceProvider = new \Core\ServiceProvider();
 $serviceProvider->run();
