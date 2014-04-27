@@ -15,3 +15,24 @@ define('PATH_ROOT', dirname(__FILE__));
 define('PATH_CORE', PATH_ROOT . DS . 'Core');
 
 require PATH_CORE . DS . 'Bootstrap.php';
+
+class User extends \Core\Database\TSModelAbstract
+{
+	protected $table = 'users';
+}
+
+$model = new User();
+
+$users = $model->findAll();
+
+$sortedUsers = $users->sortBy('username');
+
+$filteredUsers = $sortedUsers->filter(function($user)
+{
+	return $user->username !== 'bubby';
+});
+
+$filteredUsers->each(function($user)
+{
+	echo $user->username . '<br />';
+});

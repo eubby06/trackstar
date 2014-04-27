@@ -15,9 +15,9 @@ class TSSQLQuery {
 	protected $whereIn = array();
 	protected $db;
 
-	public function __construct(AdapterInterface $adapter)
+	public function __construct(DataAccessInterface $dataAccess)
 	{
-		$this->db = $adapter;
+		$this->db = $dataAccess;
 	}
 
 	public function select($column = 'all')
@@ -120,27 +120,27 @@ class TSSQLQuery {
 	{
 		$sql = $this->compile();
 		
-		$result = $this->db->execute($sql, $this->params);
+		$this->db->process($sql, $this->params);
 
-		return $result;
+		return $this->db->result();
 	}
 
 	public function get()
 	{
 		$sql = $this->compile();
 		
-		$result = $this->db->query($sql, $this->params, false);
+		$this->db->process($sql, $this->params, false);
 
-		return $result;
+		return $this->db->result();
 	}
 
 	public function getAll()
 	{
 		$sql = $this->compile();
 		
-		$result = $this->db->query($sql, $this->params, true);
+		$this->db->process($sql, $this->params, true);
 
-		return $result;
+		return $this->db->result();
 	}
 
 	public function compile()

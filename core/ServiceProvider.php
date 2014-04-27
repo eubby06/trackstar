@@ -1,7 +1,7 @@
 <?php namespace Core;
 
 use Core\App;
-use Core\Database\TSPDOAdapter as Adapter;
+use Core\Database\TSPDODataAccess as DataAccess;
 use Core\Database\TSSQLQuery as Query;
 
 class ServiceProvider
@@ -19,12 +19,12 @@ class ServiceProvider
 
 	protected function register()
 	{
-		$this->container['adapter'] = function($c) {
-			return new Adapter();
+		$this->container['dataAccess'] = function($c) {
+			return new DataAccess();
 		};
 
 		$this->container['query'] = function($c) {
-			return new Query($c['adapter']);
+			return new Query($c['dataAccess']);
 		};
 	}
 }
