@@ -46,7 +46,7 @@ $users->each(function($user)
 });
 ```
 
-### WORKING WITH MODEL RELATIONSHIPS
+### WORKING WITH RELATIONSHIPS
 
 #### ONE TO ONE
 ##### In this example, a user could only have one profile
@@ -61,7 +61,7 @@ class User extends \Core\Database\TSModelAbstract
 	}
 }
 ```
-##### In this example, we do an inverse relationship between user and profile
+##### Here we do an inverse relationship between user and profile
 ```php
 class Profile extends \Core\Database\TSModelAbstract
 {
@@ -73,7 +73,7 @@ class Profile extends \Core\Database\TSModelAbstract
 	}
 }
 ```
-##### How to query relationships
+##### How to query one-to-one relationship
 ```php
 $model = new User();
 
@@ -97,14 +97,14 @@ class User extends \Core\Database\TSModelAbstract
 	}
 }
 ```
-##### In this example, we define post model
+##### Here we define our post model
 ```php
 class Post extends \Core\Database\TSModelAbstract
 {
 	protected $table = 'posts';
 }
 ```
-##### How to query relationships
+##### How to query one-to-many relationship
 ```php
 $model = new User();
 
@@ -119,7 +119,7 @@ $posts->each(function($post)
 ```
 
 #### MANY TO MANY
-##### In this example, a user could have many roles or belongs to many groups and vice versa
+##### In this example, a user could have many roles and vice versa
 ```php
 class User extends \Core\Database\TSModelAbstract
 {
@@ -131,7 +131,7 @@ class User extends \Core\Database\TSModelAbstract
 	}
 }
 ```
-##### In this example, we define role model and its relationship
+##### Here we define our role model and its relationship
 ```php
 class Role extends \Core\Database\TSModelAbstract
 {
@@ -143,7 +143,7 @@ class Role extends \Core\Database\TSModelAbstract
 	}
 }
 ```
-##### How to query relationships
+##### How to query many-to-many relationship
 ```php
 $model = new User();
 
@@ -156,7 +156,7 @@ $roles->each(function($role)
 	echo $role->name;
 });
 ```
-##### Working with pivot table
+##### Working with pivot table of our many-to-many relationship
 ```php
 $roles->each(function($role)
 {
