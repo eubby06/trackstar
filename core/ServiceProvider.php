@@ -22,9 +22,5 @@ class ServiceProvider
 		$this->container['dataAccess'] = function($c) {
 			return new DataAccess();
 		};
-
-		$this->container['query'] = function($c) {
-			return new Query($c['dataAccess']);
-		};
 	}
 }

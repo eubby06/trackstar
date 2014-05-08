@@ -119,7 +119,7 @@ class TSSQLQuery {
 	public function execute()
 	{
 		$sql = $this->compile();
-		
+
 		$this->db->process($sql, $this->params);
 
 		return $this->db->result();
@@ -191,7 +191,7 @@ class TSSQLQuery {
 		{
 			trigger_error('updating with an empty data');
 		}
-		
+
 		foreach($this->set as $field => $value)
 		{
 			$sql .= 'SET ' . $field . ' = ' . ':' . $field . ' ';
@@ -306,7 +306,7 @@ class TSSQLQuery {
 				for($i = 0; $i < $whereNum; $i++)
 				{
 					$sql .= $where['column'][$i] . ' ' . $where['operator'][$i] . ' :' . $where['column'][$i] . ' AND ';
-					$this->params[$where['column'][$i]] = $where['value'][$i];		
+					$this->params[':' . $where['column'][$i]] = $where['value'][$i];		
 				}
 
 				$sql = rtrim($sql, ' AND :');

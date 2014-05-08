@@ -66,6 +66,7 @@ class TSModelCollection implements IteratorAggregate, Countable
 
 	public function each($callback)
 	{
+
 		if(is_callable($callback))
 		{
 			array_map($callback, $this->entities);

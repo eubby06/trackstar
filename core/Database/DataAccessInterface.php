@@ -15,6 +15,4 @@ interface DataAccessInterface
 	public function fetch();
 
 	public function fetchAll();
-
-	public function result();
 }

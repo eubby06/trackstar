@@ -24,13 +24,21 @@ class TSPDODataAccess implements DataAccessInterface
 
 	public function process($sql, $params = array(), $allRows = false)
 	{
-
 		$this->prepare($sql);
 
 		!empty($params) ? $this->execute($params) : $this->raw($sql);
 
-		$allRows ? $this->fetchAll() : $this->fetch();
-		
+		$explodedSql = explode(' ', $sql);
+
+		if ($explodedSql[0] == 'SELECT') {
+
+			$allRows ? $this->fetchAll() : $this->fetch();
+		}
+		else {
+
+			$this->result = $this->affectedRows();
+		}
+
 	}
 
 	public function statement()
@@ -53,18 +61,28 @@ class TSPDODataAccess implements DataAccessInterface
 		$this->statement->execute($params);
 	}
 
+	public function affectedRows()
+	{
+		return $this->statement->rowCount();
+	}
+
 	public function fetch()
 	{
-		$this->result[] = $this->statement->fetch(PDO::FETCH_ASSOC);
+		$this->result = $this->statement->fetch(PDO::FETCH_ASSOC);
 	}
 
 	public function fetchAll()
 	{
+
 		$this->result = $this->statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function result()
 	{
-		return $this->result;
+		$result = $this->result;
+
+		$this->result = array();
+
+		return $result;
 	}
 }

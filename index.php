@@ -19,20 +19,56 @@ require PATH_CORE . DS . 'Bootstrap.php';
 class User extends \Core\Database\TSModelAbstract
 {
 	protected $table = 'users';
+
+	public function profile()
+	{
+		return $this->hasOne('Profile', 'user_id');
+	}
+
+	public function posts()
+	{
+		return $this->hasMany('Post', 'user_id');
+	}
+
+	public function roles()
+	{
+		return $this->belongsToMany('Role');
+	}
+}
+
+class Profile extends \Core\Database\TSModelAbstract
+{
+	protected $table = 'profiles';
+
+	public function user()
+	{
+		return $this->belongsTo('User', 'user_id');
+	}
+}
+
+class Post extends \Core\Database\TSModelAbstract
+{
+	protected $table = 'posts';
+}
+
+class Role extends \Core\Database\TSModelAbstract
+{
+	protected $table = 'roles';
+
+	public function users()
+	{
+		return $this->belongsToMany('User');
+	}
 }
 
 $model = new User();
 
-$users = $model->findAll();
+$user = $model->findById(1);
 
-$sortedUsers = $users->sortBy('username');
+$roles = $user->roles;
 
-$filteredUsers = $sortedUsers->filter(function($user)
+$roles->each(function($role)
 {
-	return $user->username !== 'bubby';
-});
-
-$filteredUsers->each(function($user)
-{
-	echo $user->username . '<br />';
+	$role->pivot->description = 'this is bsd';
+	$role->pivot->save();
 });
