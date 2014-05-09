@@ -72,3 +72,11 @@ $roles->each(function($role)
 	$role->pivot->description = 'this is bsd';
 	$role->pivot->save();
 });
+
+require 'vendor/autoload.php';
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+$response = new Response('Not Found', 404, array('Content-Type' => 'text/plain'));
+$response->send();
