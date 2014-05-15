@@ -1,6 +1,7 @@
 <?php namespace Core;
 
 use Core\App;
+use Core\Router\Request;
 use Core\Database\TSPDODataAccess as DataAccess;
 use Core\Database\TSSQLQuery as Query;
 
@@ -14,6 +15,7 @@ class ServiceProvider
 	}
 	public function run()
 	{
+		include PATH_APP . DS . 'route.php';
 		$this->register();
 	}
 
@@ -21,6 +23,10 @@ class ServiceProvider
 	{
 		$this->container['dataAccess'] = function($c) {
 			return new DataAccess();
+		};
+
+		$this->container['request'] = function($c) {
+			return new Request();
 		};
 	}
 }
