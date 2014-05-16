@@ -16,5 +16,6 @@ define('PATH_APP', PATH_ROOT . DS . 'App');
 define('PATH_CORE', PATH_ROOT . DS . 'Core');
 define('PATH_VENDOR', PATH_ROOT . DS . 'Vendor');
 define('PATH_VIEW', PATH_APP . DS . 'views' . DS);
+define('PATH_CONFIG', PATH_APP . DS . 'config' . DS);
 
 require PATH_CORE . DS . 'Bootstrap.php';

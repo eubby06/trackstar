@@ -1,6 +1,7 @@
 <?php namespace Core\Database;
 
 use PDO, PDOException;
+use Core\App;
 
 class TSPDODataAccess implements DataAccessInterface
 {
@@ -12,7 +13,16 @@ class TSPDODataAccess implements DataAccessInterface
 	{
 		try
 		{
-			$this->pdo = new PDO('mysql:dbname=framework;host=127.0.0.1', 'admin', 'admin');
+			$container = App::getContainer();
+			$config = $container['config'];
+
+			$driver = $config['database']['driver'];
+			$dbname = $config['database']['dbname'];
+			$host = $config['database']['host'];
+			$username = $config['database']['username'];
+			$password = $config['database']['password'];
+
+			$this->pdo = new PDO(''.$driver.':dbname='.$dbname.';host='.$host.'', ''.$username.'', ''.$password.'');
 			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch(PDOException $e)

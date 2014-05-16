@@ -28,5 +28,11 @@ class ServiceProvider
 		$this->container['request'] = function($c) {
 			return new Request();
 		};
+
+		$this->container['config'] = function($c) {
+			include_once PATH_CONFIG . 'app.php';
+
+			return $config;
+		};
 	}
 }

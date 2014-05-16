@@ -1,9 +1,17 @@
 <?php namespace Core\MVC;
 
+use Core\Template\ColonEngine;
+
 class View
 {	
 	public $template;
 	public $data;
+	public $parser;
+
+	public function __construct()
+	{
+		$this->parser = new ColonEngine();
+	}
 
 	public function render()
 	{
@@ -20,7 +28,16 @@ class View
 
 	public function template($filename)
 	{
-		$this->template  = PATH_VIEW . preg_replace('/[\.]/', '/', $filename) . '.php';
+		if ( $this->isCE($filename) ) {
+
+			$file  = PATH_VIEW . preg_replace('/[\.]/', '/', $filename) . '.ce.php';
+
+			$this->template = $this->parser->parse($file);
+
+		} else {
+
+			$this->template  = PATH_VIEW . preg_replace('/[\.]/', '/', $filename) . '.php';
+		}
 
 		return $this;
 	}
@@ -30,5 +47,17 @@ class View
 		$this->data[$var] = $data;
 
 		return $this;
+	}
+
+	// check if the file is ColonEngine Template
+	public function isCE($filename)
+	{
+		$file  = PATH_VIEW . preg_replace('/[\.]/', '/', $filename) . '.php';
+
+		if (file_exists($file)) {
+			return false;
+		}
+
+		return true;
 	}
 }
