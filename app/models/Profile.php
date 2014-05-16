@@ -6,6 +6,6 @@ class Profile extends Base
 
 	public function user()
 	{
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('\\App\\Models\\User', 'user_id');
 	}
 }

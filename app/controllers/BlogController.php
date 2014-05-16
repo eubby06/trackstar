@@ -12,6 +12,8 @@ class BlogController extends BaseController
 
 	public function indexAction()
 	{
+		$this->user->save();
+
 		$users = $this->user->findAll();
 
 		$this->view->template('blog.index')
