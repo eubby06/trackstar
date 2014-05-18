@@ -25,6 +25,10 @@ class ServiceProvider
 			return new DataAccess();
 		};
 
+		$this->container['query'] = $this->container->factory(function ($c) {
+		    return new Query($this->container['dataAccess']);
+		});
+
 		$this->container['request'] = function($c) {
 			return new Request();
 		};

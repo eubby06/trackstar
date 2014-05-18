@@ -14,6 +14,7 @@ class Request
 	{
 		$this->request = SymfonyRequest::createFromGlobals();
 		$this->segments = $this->path();
+
 	}
 
 	public function controller()

@@ -1,8 +1,6 @@
 <?php namespace Core\Database;
 
 use Core\App;
-use Core\Database\TSSQLQuery as Query;
-use Core\Database\TSPDODataAccess as DataAccess;
 
 abstract class TSModelAbstract
 {
@@ -206,7 +204,7 @@ abstract class TSModelAbstract
 
 	protected function _newQuery()
 	{
-		return new Query($this->container['dataAccess']);
+		return $this->container['query'];
 	}
 
 	public function __set($key, $value)

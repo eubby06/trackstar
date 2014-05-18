@@ -1,8 +1,6 @@
 <?php namespace Core\Database;
 
 use Core\App;
-use Core\Database\TSSQLQuery as Query;
-use Core\Database\TSPDODataAccess as DataAccess;
 
 class PivotTable
 {
@@ -71,7 +69,7 @@ class PivotTable
 
 	protected function _newQuery()
 	{
-		return new Query($this->container['dataAccess']);
+		return $this->container['query'];
 	}
 
 
