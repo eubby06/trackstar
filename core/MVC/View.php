@@ -15,6 +15,7 @@ class View
 
 	public function render()
 	{
+
 		if(file_exists($this->template))
 		{
 			foreach($this->data as $key => $value)

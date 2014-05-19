@@ -15,11 +15,6 @@ class BlogController extends BaseController
 
 		$users = $this->user->findAll();
 
-		$users->each(function($user)
-		{
-			echo $user->username;
-		});
-
 		$this->view->template('blog.index')
 					->with('users', $users)
 					->render();

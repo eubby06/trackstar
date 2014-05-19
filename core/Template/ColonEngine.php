@@ -3,10 +3,13 @@
 class ColonEngine
 {
 	public $masterPath;
+	public $masterSections = array();
 	public $parsedMaster;
 	public $templatePaths = array();
+	public $templateSections = array();
 	public $parsedTemplates = array();
 	public $finalTemplate;
+
 
 	public function setMaster($masterPath)
 	{
@@ -31,13 +34,16 @@ class ColonEngine
 	{
 		// scan and get associated templates
 		$content = $this->getContent($file);
-
+print_r($content);
 		// get and set master
 		$ceMaster = $this->findMaster($content);
+		$this->setMaster($ceMaster);
 
-		print_r($ceMaster);
-
-		// set partial templates
+		// get and set master sections
+		
+		// get and set template sections
+		$ceSections = $this->findSections($content);
+		$templateSections = $ceSections;
 
 		// then parse altogether
 
@@ -54,7 +60,33 @@ class ColonEngine
 
 	public function findMaster($content)
 	{
-		return preg_match('/main/', $content);
+		preg_match('/:master:\(\'.+\'\)/', $content, $match);
+
+		if ($match) {
+			$master = substr(preg_replace('/:master:\(\'/', '', $match[0]), 0, -2);
+
+			return $master;		
+		}
+
+		return false;
+	}
+
+	public function findSections($content)
+	{
+		$sections = array();
+
+		preg_match('/:section:\(\'.+\'\)/', $content, $matches);
+
+		//get section name
+		if($matches)
+		{
+			foreach($matches as $match)
+			{
+				$sections[] = substr(preg_replace('/:section:\(\'/', '', $match), 0, -2);
+			}
+		}
+
+		return $sections;
 	}
 
 	public function getContent($templatePath)
