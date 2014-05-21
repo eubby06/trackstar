@@ -80,7 +80,6 @@ class ColonEngine
 	{
 		$this->_replaceYieldWithSection();
 		$this->_replaceWithPHPTags();
-		$this->_finalizeTemplate();
 		$this->_compile();
 	}
 
@@ -135,11 +134,6 @@ class ColonEngine
 		array_walk($insideForeach, $callback);
 
 		$this->page = $currentTemplate;
-	}
-
-	protected function _finalizeTemplate()
-	{
-
 	}
 
 	public function findMaster($content)

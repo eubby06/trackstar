@@ -1,6 +1,82 @@
 
 ## THIS FRAMEWORK IS UNDER DEVELOPMENT
 
+### HOW TO USE COLONENGINE (A built-in templating engine)
+
+#### Template Helpers
+```php
+//basic
+:c: $username :e: // the same as <?= $username ?>
+
+//loops
+::foreach($users as $user) // outputs <?php foreach($users as $user) : ?>
+::endforeach // ends foreach <?php endforeach; ?>
+
+//setting master layout
+:master:('path.to.master.layout')
+
+//specifying section containers
+:yield:('content')
+
+//set up sections in partials
+:section:('content')
+```
+#### Creating Master Layout with :yield:
+```php
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="top"> :yield:('content') </div>
+	<div class="bottom"> :yield:('widget') </div>
+</body>
+</html>
+```
+#### Creating Partials with :section: and ::foreach
+```php
+:master:('main')
+
+:section:('content')
+	<h1>Content</h1>
+	<table>
+		<thead>
+		<tr>
+			<th>username</th>
+			<th>password</th>
+			<th>posts</th>
+		</tr>
+		</thead>
+		<tbody>
+		::foreach($users as $user)
+		
+		<tr>
+			<td>:c: $user->username :e:</td>
+			<td>:c: $user->password :e:</td>
+			<td>
+
+				::foreach($user->posts as $post)
+				<p>:c: $post->title :e:</p>
+				::endforeach
+			</td>
+		</tr>
+
+		::endforeach
+		</tbody>
+	</table>
+:end:
+
+:section:('widget')
+	<h1>Sidebar Widget</h1>
+	<ul>
+	    <li>one</li>
+	    <li>two</li>
+	    <li>three</li>
+	    <li>four</li>
+	</ul>
+:end:
+```
+
 ### HOW TO USE MODEL
 
 #### Creating Class
