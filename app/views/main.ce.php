@@ -3,6 +3,7 @@
 	<title></title>
 </head>
 <body>
-:yield:('content')
+	<div class="top"> :yield:('content') </div>
+	<div class="bottom"> :yield:('widget') </div>
 </body>
 </html>

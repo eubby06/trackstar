@@ -1,6 +1,7 @@
 :master:('main')
 
 :section:('content')
+	<h1>Content</h1>
 	<table>
 		<thead>
 		<tr>
@@ -10,20 +11,30 @@
 		</tr>
 		</thead>
 		<tbody>
-		:c: foreach($users as $user) :e:
+		::foreach($users as $user)
 		
 		<tr>
-			<td>:c: echo $user->username :e:</td>
-			<td>:c: echo $user->password :e:</td>
+			<td>:c: $user->username :e:</td>
+			<td>:c: $user->password :e:</td>
 			<td>
 
-				:c: foreach($user->posts as $post) :e:
-				<p>:c: echo $post->title :e:</p>
-				:c: endforeach :e:
+				::foreach($user->posts as $post)
+				<p>:c: $post->title :e:</p>
+				::endforeach
 			</td>
 		</tr>
 
-		:c: endforeach :e:
+		::endforeach
 		</tbody>
 	</table>
+:end:
+
+:section:('widget')
+	<h1>Sidebar Widget</h1>
+	<ul>
+	    <li>one</li>
+	    <li>two</li>
+	    <li>three</li>
+	    <li>four</li>
+	</ul>
 :end:
