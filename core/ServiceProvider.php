@@ -4,6 +4,7 @@ use Core\App;
 use Core\Router\Request;
 use Core\Database\TSPDODataAccess as DataAccess;
 use Core\Database\TSSQLQuery as Query;
+use Core\Helper\Html;
 
 class ServiceProvider
 {
@@ -37,6 +38,10 @@ class ServiceProvider
 			include_once PATH_CONFIG . 'app.php';
 
 			return $config;
+		};
+
+		$this->container['html'] = function($c) {
+			return new Html();
 		};
 	}
 }

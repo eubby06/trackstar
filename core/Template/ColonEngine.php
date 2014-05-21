@@ -35,13 +35,6 @@ class ColonEngine
 		return $this;
 	}
 
-	public function parseSection($section)
-	{
-		// get content
-
-		// start parsing
-	}
-
 	public function parse($file)
 	{
 		// scan and get associated templates

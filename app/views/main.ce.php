@@ -1,9 +1,9 @@
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<div class="top"> :yield:('content') </div>
-	<div class="bottom"> :yield:('widget') </div>
-</body>
-</html>
+<?php
+
+$html->start()
+	->title('Trackstar Project')
+	->body(function($div) {
+		return $div->name('main')
+					->render();
+	})
+	->render();
