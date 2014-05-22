@@ -13,6 +13,7 @@ spl_autoload_register( 'Autoloader::load');
 
 // initialize service provider
 $serviceProvider = new \Core\ServiceProvider();
+
 $serviceProvider->run();
 
 // initialize app

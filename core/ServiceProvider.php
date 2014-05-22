@@ -18,6 +18,7 @@ class ServiceProvider
 	{
 		include PATH_APP . DS . 'route.php';
 		$this->register();
+		$this->aliases();
 	}
 
 	protected function register()
@@ -39,9 +40,11 @@ class ServiceProvider
 
 			return $config;
 		};
+	}
 
-		$this->container['html'] = function($c) {
-			return new Html();
-		};
+	protected function aliases()
+	{
+		class_alias('\\Core\\Helper\\Html', 'HTML');
+		class_alias('\\Core\\Helper\\Form', 'FORM');
 	}
 }

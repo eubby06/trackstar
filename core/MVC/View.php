@@ -22,11 +22,7 @@ class View
 			{
 				$$key = $value;
 			}
-
-			//load container
-			$container = \Core\App::getContainer();
-			$html = $container['html'];
-			
+		
 			include $this->template;
 		}
 	}

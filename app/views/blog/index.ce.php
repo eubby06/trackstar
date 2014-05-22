@@ -28,13 +28,3 @@
 		</tbody>
 	</table>
 :end:
-
-:section:('widget')
-	<h1>Sidebar Widget</h1>
-	<ul>
-	    <li>one</li>
-	    <li>two</li>
-	    <li>three</li>
-	    <li>four</li>
-	</ul>
-:end:

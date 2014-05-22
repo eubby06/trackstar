@@ -2,58 +2,13 @@
 
 class Html
 {
-	public $markup;
-	public $html;
-	public $head;
-	public $title;
-	public $body = array();
-
-	public function start()
+	public static function script($path)
 	{
-		$this->htmlStart = '<html>' . PHP_EOL;
-		$this->htmlEnd = '</html>';
-
-		return $this;
+		return '<script type="text/javascript" src="' . str_replace('.', '/', $path) . '.js"> </script>';
 	}
 
-	public function title($title)
+	public static function style($path)
 	{
-		$this->head = '<head><title>' . $title . '</title></head>';
-		return $this;
-	}
-
-	public function body($callback)
-	{
-		$div = new Div();
-
-		$this->body = '<body>' . $callback($div) . '</body>';
-		return $this;
-	}
-
-	public function render()
-	{
-		echo $this->htmlStart;
-
-		echo $this->head;
-
-		echo $this->body;
-
-		echo $this->htmlEnd;
-	}
-}
-
-class Div
-{
-	public $class;
-
-	public function name($class)
-	{
-		$this->class = $class;
-		return $this;
-	}
-
-	public function render()
-	{
-		return '<div class="' . $this->class . '"></div>';
+		return '<link rel="stylesheet" href="' . str_replace('.', '/', $path) . '.css" >';
 	}
 }

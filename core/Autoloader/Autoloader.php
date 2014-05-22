@@ -11,7 +11,7 @@ class Autoloader
 
 		array_walk($extensions, function($ext) use($file_path)
 		{
-			$file = $file_path . $ext;
+			$file = PATH_ROOT . $file_path . $ext;
 
 			if(!file_exists($file))
 			{
@@ -19,7 +19,7 @@ class Autoloader
 			}
 			else
 			{
-				include_once($file_path . $ext);
+				include_once($file);
 			}
 			
 		});
