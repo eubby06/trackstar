@@ -4,11 +4,11 @@
 #### Contant Variables
 ```php
 PATH_ROOT // root of your application
-PATH_APP' // path to your app directory
+PATH_APP // path to your app directory
 PATH_CORE // all core classes
-PATH_VENDOR // for third-party packages
+PATH_VENDOR // path to third-party packages
 PATH_VIEW // path to your views
-PATH_CONFIG // config folder inside your app directory
+PATH_CONFIG // path to config folder inside your app directory
 ```
 #### Form Helper
 ```php
