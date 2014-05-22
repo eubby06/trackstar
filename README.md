@@ -3,6 +3,51 @@
 
 ### HOW TO USE COLONENGINE (A built-in templating engine)
 
+#### Form Helper
+```php
+//basic form
+	<div class="form">
+		<?= FORM::open('contact', 'contact/send', array('class' => 'small-form')) ?>
+		<ul>
+			<li>		
+		    	<?= FORM::label('Not Member?') ?>
+				<?= FORM::checkbox('member', 'member', array('class' => 'member', 'id' => 'member'), $checked? ) ?>
+			</li>
+			<li>		
+		    	<?= FORM::label('Payment Mode:') ?>
+				<?= FORM::radio('mode', array('cash','credit','cheque'), array('class' => 'mode', 'id' => 'mode'), $default) ?>
+			</li>
+		    <li>		
+		    	<?= FORM::label('Username') ?>
+				<?= FORM::input('username', 'John', array('class' => 'username', 'id' => 'user')) ?>
+			</li>
+		    <li>		
+		    	<?= FORM::label('Password') ?>
+				<?= FORM::password('password') ?>
+			</li>
+		    <li>		
+		    	<?= FORM::label('Message') ?>
+				<?= FORM::text('message') ?>
+			</li>
+			<li>
+				<?= FORM::dropdown('countries', array('us' => 'USA', 'ph' => 'Philippines', 'th' => 'Thailand'), null, 'ph') ?>
+			</li>
+			<li><?= FORM::submit('Send') ?></li>
+		</ul>
+		<?= FORM::close() ?>
+	</div>
+```
+#### HTML Helper
+```php
+//including your assets
+<html>
+<head>
+	<title></title>
+	<?= HTML::script('assets.js.main') ?>
+	<?= HTML::style('assets.css.main') ?>
+</head>
+```
+
 #### Template Helpers
 ```php
 //basic
