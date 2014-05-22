@@ -1,8 +1,6 @@
 
 ## THIS FRAMEWORK IS UNDER DEVELOPMENT
 
-### HOW TO USE COLONENGINE (A built-in templating engine)
-
 #### Form Helper
 ```php
 //basic form
@@ -47,7 +45,7 @@
 	<?= HTML::style('assets.css.main') ?>
 </head>
 ```
-
+### HOW TO USE ColonEngine (a built-in templating engine)
 #### Template Helpers
 ```php
 //basic
