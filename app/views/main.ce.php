@@ -10,7 +10,7 @@
 	<?php $man = 'Yonanne'; ?>
 	<h1>::$man</h1>
 	<div class="form">
-		<?= FORM::open('contact', 'contact/send', array('class' => 'small-form')) ?>
+		<?= FORM::open('contact', '/view', array('class' => 'small-form')) ?>
 		<ul>
 			<li>		
 		    	<?= FORM::label('Not Member?') ?>

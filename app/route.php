@@ -4,4 +4,4 @@ use Core\Router\Route;
 
 Route::get('/', '\\App\\Controllers\\BlogController@indexAction');
 
-Route::get('blog/view/{id}', '\\App\\Controllers\\BlogController@viewAction');
+Route::get('view', '\\App\\Controllers\\BlogController@viewAction');

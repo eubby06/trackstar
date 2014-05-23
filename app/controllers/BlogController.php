@@ -12,6 +12,7 @@ class BlogController extends BaseController
 
 	public function indexAction()
 	{
+		$this->session->setFlash('message', 'Success');
 
 		$users = $this->user->findAll();
 
@@ -21,9 +22,8 @@ class BlogController extends BaseController
 					
 	}
 
-	public function viewAction($param)
+	public function viewAction()
 	{
-		echo 'view = ';
-		echo $param;
+		echo $this->session->getFlash('message');
 	}
 }
