@@ -5,7 +5,10 @@
 	<?= HTML::style('assets.css.main') ?>
 </head>
 <body>
-	<div class="content"> :yield:('content') </div>
+
+	<div class="content">::yield('content')</div>
+	<?php $man = 'Yonanne'; ?>
+	<h1>::$man</h1>
 	<div class="form">
 		<?= FORM::open('contact', 'contact/send', array('class' => 'small-form')) ?>
 		<ul>
@@ -35,7 +38,6 @@
 			<li><?= FORM::submit('Send') ?></li>
 		</ul>
 		<?= FORM::close() ?>
-
 	</div>
 </body>
 </html>

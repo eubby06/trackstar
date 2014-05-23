@@ -12,3 +12,4 @@ define('PATH_CORE', PATH_ROOT . 'Core' . DS);
 define('PATH_VENDOR', PATH_ROOT . 'Vendor' . DS);
 define('PATH_VIEW', PATH_APP . 'views' . DS);
 define('PATH_CONFIG', PATH_APP . 'config' . DS);
+define('PATH_STORAGE', PATH_APP . 'storage' . DS);

@@ -1,7 +1,8 @@
-:master:('main')
+::master('main')
 
-:section:('content')
-	<h1>Content</h1>
+::section('content')
+
+	<h1>::Content</h1>
 	<table>
 		<thead>
 		<tr>
@@ -11,15 +12,17 @@
 		</tr>
 		</thead>
 		<tbody>
+			::user = 'admin'
+			::$user
 		::foreach($users as $user)
 		
 		<tr>
-			<td>:c: $user->username :e:</td>
-			<td>:c: $user->password :e:</td>
+			<td>::$user->username</td>
+			<td>::$user->password</td>
 			<td>
 
 				::foreach($user->posts as $post)
-				<p>:c: $post->title :e:</p>
+				<p>::$post->title</p>
 				::endforeach
 			</td>
 		</tr>
@@ -27,4 +30,4 @@
 		::endforeach
 		</tbody>
 	</table>
-:end:
+::end

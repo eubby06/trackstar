@@ -57,21 +57,34 @@ PATH_CONFIG // path to config folder inside your app directory
 ### HOW TO USE ColonEngine (a built-in templating engine)
 #### Template Helpers
 ```php
-//basic
-:c: $username :e: // the same as <?= $username ?>
+//basic echoing
+::$username // the same as <?php echo $username; ?>
+
+//declaring variables
+::country = 'Thailand' // the same as <?php $country = 'Thailand'; ?>
+::$country // outputs 'Thailand'
+
+// if statement
+::if($address == 'uk')
+	//...
+::elseif($address == 'us')
+	//...
+::else
+	//...
+::endif
 
 //loops
 ::foreach($users as $user) // outputs <?php foreach($users as $user) : ?>
 ::endforeach // ends foreach <?php endforeach; ?>
 
 //setting master layout
-:master:('path.to.master.layout')
+::master('path.to.master.layout')
 
 //specifying section containers
-:yield:('content')
+::yield('content')
 
 //set up sections in partials
-:section:('content')
+::section('content')
 ```
 #### Creating Master Layout with :yield:
 ```php
@@ -80,16 +93,16 @@ PATH_CONFIG // path to config folder inside your app directory
 	<title></title>
 </head>
 <body>
-	<div class="top"> :yield:('content') </div>
-	<div class="bottom"> :yield:('widget') </div>
+	<div class="top"> ::yield('content') </div>
+	<div class="bottom"> ::yield('widget') </div>
 </body>
 </html>
 ```
 #### Creating Partials with :section: and ::foreach
 ```php
-:master:('main')
+::master('main')
 
-:section:('content')
+::section('content')
 	<h1>Content</h1>
 	<table>
 		<thead>
@@ -103,12 +116,12 @@ PATH_CONFIG // path to config folder inside your app directory
 		::foreach($users as $user)
 		
 		<tr>
-			<td>:c: $user->username :e:</td>
-			<td>:c: $user->password :e:</td>
+			<td>::$user->username </td>
+			<td>::$user->password </td>
 			<td>
 
 				::foreach($user->posts as $post)
-				<p>:c: $post->title :e:</p>
+				<p>::$post->title </p>
 				::endforeach
 			</td>
 		</tr>
@@ -116,9 +129,9 @@ PATH_CONFIG // path to config folder inside your app directory
 		::endforeach
 		</tbody>
 	</table>
-:end:
+::end
 
-:section:('widget')
+::section('widget')
 	<h1>Sidebar Widget</h1>
 	<ul>
 	    <li>one</li>
@@ -126,7 +139,7 @@ PATH_CONFIG // path to config folder inside your app directory
 	    <li>three</li>
 	    <li>four</li>
 	</ul>
-:end:
+::end
 ```
 
 ### HOW TO USE MODEL

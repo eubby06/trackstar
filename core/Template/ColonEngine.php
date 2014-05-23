@@ -11,6 +11,7 @@ class ColonEngine
 	public $finalTemplate;
 	protected $page;
 	protected $compiled;
+	protected $compilers = array('Echos','Openings','Closings','Assignments');
 
 
 	public function setMaster($masterPath)
@@ -59,10 +60,10 @@ class ColonEngine
 		return $this->compiled;
 	}
 
-	protected function _compile()
+	protected function _store()
 	{
 		// write to file
-		$file = PATH_VIEW . 'compiled.php';
+		$file = PATH_STORAGE . 'compiled.php';
 
 		file_put_contents($file, $this->page);
 
@@ -72,8 +73,8 @@ class ColonEngine
 	protected function _parse()
 	{
 		$this->_replaceYieldWithSection();
-		$this->_replaceWithPHPTags();
 		$this->_compile();
+		$this->_store();
 	}
 
 	protected function _replaceYieldWithSection()
@@ -86,7 +87,7 @@ class ColonEngine
 
 		$callback = function($section, $index) use(&$nospaces)
 		{
-			$nospaces = preg_replace('/:yield:\(\''.$section.'\'\)/', $this->templateSections[$section], $nospaces);
+			$nospaces = preg_replace('/::yield\(\''.$section.'\'\)/', $this->templateSections[$section], $nospaces);
 			return $nospaces;
 		};
 
@@ -95,46 +96,47 @@ class ColonEngine
 		$this->page = $nospaces;
 	}
 
-	protected function _replaceWithPHPTags()
+	// replacing with php tags
+	protected function _compile()
 	{
-		//replace opening tag
-		$this->page = preg_replace('/:c:/', '<?=', $this->page);
 
-		//replace closing tag
-		$this->page = preg_replace('/:e:/', '?>', $this->page);
+		foreach($this->compilers as $compiler)
+		{
+			$this->{"_replace$compiler"}();
+		}
+	}
 
-		//replace closing tag
-		$this->page = preg_replace('/:e:/', '?>', $this->page);
+	//replace closing tag
+	protected function _replaceEchos()
+	{
+		$this->page = preg_replace("/::(\\$[a-zA-Z_][a-z\-\>_0-9]+)/", '<?php echo $1; ?>', $this->page);
+	}
 
-		//replace endforeach
-		$this->page = preg_replace('/::endforeach/', '<?php endforeach; ?>', $this->page);
+	//replace closing tag
+	protected function _replaceClosings()
+	{
+		$this->page = preg_replace("/::(endforeach|endif|endwhile)/", '<?php $1; ?>', $this->page);
+	}
 
-		//for foreach control
-		preg_match_all('/::foreach\((.+)\)/U', $this->page, $foreach);
+	//replace assignment
+	protected function _replaceAssignments()
+	{
+		$this->page = preg_replace("/::([a-zA-Z_][a-z]+\s\=\s\'.+\')/U", '<?php $$1; ?>', $this->page);
+	}
 
-		$insideForeach = $foreach[1];
-
-		$numberOfForeach = count($foreach[1]);
-		$currentTemplate = $this->page;
-
-		$callback = function($each, $index) use(&$currentTemplate) {
-
-			$currentTemplate = str_replace('::foreach('.$each.')', '<?php foreach('.$each.') : ?>', $currentTemplate);
-
-			return $currentTemplate;
-		};
-
-		array_walk($insideForeach, $callback);
-
-		$this->page = $currentTemplate;
+	//replace closing tag
+	protected function _replaceOpenings()
+	{
+		$this->page = preg_replace("/::(foreach|if|while|elseif)\((.+)\)/U", '<?php $1($2): ?>', $this->page);
+		$this->page = preg_replace("/::(else)/", '<?php $1: ?>', $this->page);
 	}
 
 	public function findMaster($content)
 	{
-		preg_match('/:master:\(\'.+\'\)/', $content, $match);
+		preg_match('/::master\(\'.+\'\)/', $content, $match);
 
 		if ($match) {
-			$master = substr(preg_replace('/:master:\(\'/', '', $match[0]), 0, -2);
+			$master = substr(preg_replace('/::master\(\'/', '', $match[0]), 0, -2);
 
 			return $master;		
 		}
@@ -146,7 +148,7 @@ class ColonEngine
 	{
 		$sections = array();
 
-		preg_match_all('/:section:\(\'.+\'\)/', $content, $matches);
+		preg_match_all('/::section\(\'.+\'\)/', $content, $matches);
 
 		$matches = array_shift($matches);
 
@@ -155,7 +157,7 @@ class ColonEngine
 		{
 			foreach($matches as $match)
 			{
-				$section = substr(preg_replace('/:section:\(\'/', '', $match), 0, -2);
+				$section = substr(preg_replace('/::section\(\'/', '', $match), 0, -2);
 				$sections[$section] = $this->getSectionContent($content, $section);
 			}
 		}
@@ -167,7 +169,7 @@ class ColonEngine
 	{
 		$yields = array();
 
-		preg_match_all('/:yield:\(\'.+\'\)/', $content, $matches);
+		preg_match_all('/::yield\(\'.+\'\)/', $content, $matches);
 
 		$matches = array_shift($matches);
 
@@ -176,7 +178,7 @@ class ColonEngine
 		{
 			foreach($matches as $match)
 			{
-				$yields[] = substr(preg_replace('/:yield:\(\'/', '', $match), 0, -2);
+				$yields[] = substr(preg_replace('/::yield\(\'/', '', $match), 0, -2);
 			}
 		}
 
@@ -190,7 +192,7 @@ class ColonEngine
 
 		$nospaces = preg_replace("/\s+/", " ", $content);
 
-		preg_match('/:section:\(\''.$section.'\'\)(.+):end:(.|\s|\z)/U', $nospaces, $matches);
+		preg_match('/::section\(\''.$section.'\'\)(.+)::end(\s|\W)/U', $nospaces, $matches);
 
 		return isset($matches[1]) ? $matches[1] : false;
 	}
