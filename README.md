@@ -186,6 +186,44 @@ $users->each(function($user)
 	echo $user->username;
 });
 ```
+### HOW TO USE VALIDATOR IN YOUR MODEL
+
+#### Creating Class
+```php
+class User extends \Core\Database\TSModelAbstract
+{
+	protected $table = 'users';
+
+	// adding rules
+	public $rules = array(
+		'username' 	=> 'required|min:2|unique:users',
+		'password' 	=> 'required|numeric|max:8',
+		'email'		=> 'email'
+		);
+
+	// sample attributes
+	public $attributes = array(
+		'username' 	=> 'johndoes',
+		'password' 	=> '12334343',
+		'email' 	=> 'admin@yahoo.com'
+		);
+
+	public function save()
+	{
+		// accessing validator object inside your model
+		$this->validator->validate($this->attributes);
+
+		if ($this->validator->passes())
+		{
+			return 'passes';
+		}
+		else
+		{
+			return $this->validator->errors();
+		}
+	}
+}
+```
 
 ### WORKING WITH RELATIONSHIPS
 

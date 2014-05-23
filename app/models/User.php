@@ -33,15 +33,15 @@ class User extends Base
 
 	public function save()
 	{
-		$this->validator->validate();
+		$this->validator->validate($this->attributes);
 
 		if ($this->validator->passes())
 		{
-			echo 'passes';
+			return 'passes';
 		}
 		else
 		{
-			print_r($this->validator->errors());
+			return $this->validator->errors();
 		}
 	}
 }

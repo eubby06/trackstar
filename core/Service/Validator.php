@@ -16,8 +16,10 @@ class Validator
 		$this->attributes = array_merge($this->attributes, $attributes);
 	}
 
-	public function validate()
+	public function validate($attributes = array())
 	{
+		$this->attributes = array_merge($attributes, $this->attributes);
+		
 		$callback = function($value, $field){
 
 			$rule = $this->rules[$field];
