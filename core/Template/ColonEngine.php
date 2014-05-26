@@ -7,11 +7,13 @@ class ColonEngine
 	public $parsedMaster;
 	public $templatePaths = array();
 	public $templateSections = array();
+	public $includes = array();
+	public $includesTemplate = array();
 	public $parsedTemplates = array();
 	public $finalTemplate;
 	protected $page;
 	protected $compiled;
-	protected $compilers = array('Echos','Openings','Closings','Assignments');
+	protected $compilers = array('Includes','Echos','Openings','Closings','Assignments');
 
 
 	public function setMaster($masterPath)
@@ -28,6 +30,11 @@ class ColonEngine
 	public function setSections($sections)
 	{
 		$this->templateSections = $sections;
+	}
+
+	public function setIncludes($includes)
+	{
+		$this->includes = array_merge($this->includes, $includes);
 	}
 
 	public function setTemplate($templatePath)
@@ -49,6 +56,13 @@ class ColonEngine
 		$masterContent = $this->getContent($ceMaster);
 		$ceMasterYields = $this->findYields($masterContent);
 		$this->setYields($ceMasterYields);
+
+		// get and set includes
+		$masterIncludes = $this->findIncludes($masterContent);
+		$contentIncludes = $this->findIncludes($content);
+		$this->setIncludes($masterIncludes);
+		$this->setIncludes($contentIncludes);
+		$this->getIncludesTemplate();
 
 		// get and set template sections
 		$templateSections = $this->findSections($content);
@@ -94,6 +108,21 @@ class ColonEngine
 		array_walk($this->masterYields, $callback);
 
 		$this->page = $nospaces;
+	}
+
+	protected function _replaceIncludes()
+	{
+		$content = $this->page;
+
+		$callback = function($include, $index) use(&$content)
+		{
+			$content = preg_replace('/::include\(\''.$include.'\'\)/', $this->includesTemplate[$include], $content);
+			return $content;
+		};
+
+		array_walk($this->includes, $callback);
+
+		$this->page = $content;
 	}
 
 	// replacing with php tags
@@ -186,6 +215,26 @@ class ColonEngine
 		return $yields;
 	}
 
+	public function findIncludes($content)
+	{
+		$includes = array();
+
+		preg_match_all('/::include\(\'.+\'\)/', $content, $matches);
+
+		$matches = array_shift($matches);
+
+		//get yield name
+		if($matches)
+		{
+			foreach($matches as $match)
+			{
+				$includes[] = substr(preg_replace('/::include\(\'/', '', $match), 0, -2);
+			}
+		}
+
+		return $includes;
+	}
+
 	public function getSectionContent($content, $section)
 	{
 		
@@ -196,6 +245,14 @@ class ColonEngine
 		preg_match('/::section\(\''.$section.'\'\)(.+)::end(\s|\W)/U', $nospaces, $matches);
 
 		return isset($matches[1]) ? $matches[1] : false;
+	}
+
+	public function getIncludesTemplate()
+	{
+		foreach($this->includes as $key => $value)
+		{
+			$this->includesTemplate[$value] = $this->getContent($value);
+		}
 	}
 
 	public function getContent($templatePath)

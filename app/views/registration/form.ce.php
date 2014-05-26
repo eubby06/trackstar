@@ -20,3 +20,5 @@
 	</div>
 
 ::end
+
+::include('partials.social')

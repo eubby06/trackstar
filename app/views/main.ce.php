@@ -5,6 +5,8 @@
 	<?= HTML::style('assets.css.main') ?>
 </head>
 <body>
+	::include('partials.header')
+
 	::if($session->has('errors'))
 		<div class="errors">::$session->errors</div>
 	::endif
@@ -14,6 +16,8 @@
 	::endif
 
 	<div class="content">::yield('content')</div>
+
+	::include('partials.footer')
 
 </body>
 </html>
