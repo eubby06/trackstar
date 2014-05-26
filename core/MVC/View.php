@@ -15,12 +15,14 @@ class View
 
 	public function render()
 	{
-
 		if(file_exists($this->template))
 		{
-			foreach($this->data as $key => $value)
+			if($this->data)
 			{
-				$$key = $value;
+				foreach($this->data as $key => $value)
+				{
+					$$key = $value;
+				}			
 			}
 			
 			$session = $this->container['session'];
