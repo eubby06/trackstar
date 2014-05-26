@@ -141,6 +141,16 @@ PATH_CONFIG // path to config folder inside your app directory
 	</ul>
 ::end
 ```
+#### Handling errors and flash messages
+```php
+::if($session->has('errors'))
+	<div class="errors">::$session->errors</div>
+::endif
+
+::if($session->has('success')) // check if success exists
+	<div class="errors">::$session->success</div> // then access it directly
+::endif
+```
 
 ### HOW TO USE MODEL
 
