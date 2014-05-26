@@ -6,10 +6,9 @@ class Session
 {
 	public $session;
 
-	public function __construct()
+	public function __construct(SymfonySession $session)
 	{
-		$this->session = new SymfonySession();
-		$this->session->start();
+		$this->session = $session;
 	}
 
 	public function setFlash($name, $value)
@@ -19,8 +18,62 @@ class Session
 
 	public function getFlash($name)
 	{
+		$response = '';
+
 		foreach ($this->session->getFlashBag()->get($name, array()) as $message) {
-			    return '<div class="flash-warning">'.$message.'</div>';
+				
+			    $response = '<div class="flash-warning">'.$message.'</div>';
 			}
+
+		$this->session->getFlashBag()->clear();
+		return $response;
+	}
+
+	public function setError($errors)
+	{
+		$this->session->getFlashBag()->add('errors', $errors);
+	}
+
+	public function getErrors()
+	{
+		$response = '<ul>';
+
+		foreach ($this->session->getFlashBag()->get('errors', array()) as $errors) {
+				
+			    foreach($errors as $error)
+			    {
+			    	$response .= '<li class="flash-warning">'.$error.'</li>';
+			    }
+			}
+
+		$response .= '</ul>';
+				
+		$this->session->getFlashBag()->clear();
+		return $response;
+	}
+
+	public function has($key)
+	{
+		if($this->session->getFlashBag()->has($key))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	public function __get($key)
+	{
+		if($this->has($key))
+		{
+			if($key == 'errors')
+			{
+				return $this->getErrors();
+			}
+			else
+			{
+				return $this->getFlash($key);
+			}
+		}
 	}
 }

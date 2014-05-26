@@ -109,7 +109,7 @@ class ColonEngine
 	//replace closing tag
 	protected function _replaceEchos()
 	{
-		$this->page = preg_replace("/::(\\$[a-zA-Z_][a-z\-\>_0-9]+)/", '<?php echo $1; ?>', $this->page);
+		$this->page = preg_replace("/::(\\$[a-zA-Z_][a-zA-Z\-\>_0-9]+)/", '<?php echo $1; ?>', $this->page);
 	}
 
 	//replace closing tag
@@ -127,6 +127,7 @@ class ColonEngine
 	//replace closing tag
 	protected function _replaceOpenings()
 	{
+		$this->page = preg_replace("/::(foreach|if|while|elseif)\((.+\))\)/U", '<?php $1($2): ?>', $this->page);
 		$this->page = preg_replace("/::(foreach|if|while|elseif)\((.+)\)/U", '<?php $1($2): ?>', $this->page);
 		$this->page = preg_replace("/::(else)/", '<?php $1: ?>', $this->page);
 	}

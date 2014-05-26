@@ -46,7 +46,7 @@ class TSPDODataAccess implements DataAccessInterface
 		}
 		else {
 
-			$this->result = $this->affectedRows();
+			$this->result = $this->lastInsertedId();
 		}
 
 	}
@@ -74,6 +74,11 @@ class TSPDODataAccess implements DataAccessInterface
 	public function affectedRows()
 	{
 		return $this->statement->rowCount();
+	}
+
+	public function lastInsertedId()
+	{
+		return $this->pdo->lastInsertId();
 	}
 
 	public function fetch()

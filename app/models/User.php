@@ -5,15 +5,8 @@ class User extends Base
 	protected $table = 'users';
 
 	public $rules = array(
-		'username' 	=> 'required|min:2|unique:users',
-		'password' 	=> 'required|numeric|max:8',
-		'email'		=> 'email'
-		);
-
-	public $attributes = array(
-		'username' 	=> 'johndoes',
-		'password' 	=> '12334343',
-		'email' 	=> 'admin@yahoo.com'
+		'username' 		=> 'required',
+		'password' 		=> 'required'
 		);
 
 	public function profile()
@@ -31,17 +24,17 @@ class User extends Base
 		return $this->belongsToMany('\\App\\Models\\Role');
 	}
 
-	public function save()
+	public function validate($attributes)
 	{
-		$this->validator->validate($this->attributes);
+		$this->validator->validate($attributes);
 
 		if ($this->validator->passes())
 		{
-			return 'passes';
+			return true;
 		}
 		else
 		{
-			return $this->validator->errors();
+			return false;
 		}
 	}
 }

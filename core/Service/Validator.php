@@ -73,7 +73,7 @@ class Validator
 	{
 		if ( $value == '' || is_null($value) || empty($value) ) {
 			
-			$this->errors[$field] = 'This field is required';
+			$this->errors[$field] = $field . ' is required';
 
 			return false;
 		}
@@ -82,7 +82,7 @@ class Validator
 	protected function numeric($value, $field)
 	{
 		if (!is_numeric($value)) {
-			$this->errors[$field] = 'This field must be numeric';
+			$this->errors[$field] = $field . ' must be numeric';
 			return false;
 		}
 	}
@@ -91,7 +91,7 @@ class Validator
 	{
 
 		if(strlen($value) > $max) {
-			$this->errors[$field] = 'This field should not exceed ' . $max . ' characters.';
+			$this->errors[$field] =  $field . ' should not exceed ' . $max . ' characters.';
 			return false;
 		}
 	}
@@ -100,7 +100,7 @@ class Validator
 	{
 		if(strlen($value) < $min)
 		{
-			$this->errors[$field] = 'This field should contain at least ' . $min . ' characters.';
+			$this->errors[$field] =  $field . ' should contain at least ' . $min . ' characters.';
 			return false;		
 		}
 	}
@@ -116,7 +116,7 @@ class Validator
 					->get();
 
 		if(!empty($record)) {
-			$this->errors[$field] = 'This field must be unique.';
+			$this->errors[$field] =  $field . ' must be unique.';
 			return false;	
 		}
 	}
@@ -124,7 +124,7 @@ class Validator
 	protected function email($value, $field)
 	{
 		if( !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-			$this->errors[$field] = 'This email is not a valid email address.';
+			$this->errors[$field] =  $field . ' is not a valid email address.';
 			return false;	
 		}
 	}

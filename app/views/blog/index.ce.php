@@ -2,32 +2,22 @@
 
 ::section('content')
 
-	<h1>::Content</h1>
-	<table>
-		<thead>
-		<tr>
-			<th>username</th>
-			<th>password</th>
-			<th>posts</th>
-		</tr>
-		</thead>
-		<tbody>
-			::user = 'admin'
-			::$user
-		::foreach($users as $user)
-		
-		<tr>
-			<td>::$user->username</td>
-			<td>::$user->password</td>
-			<td>
+	::man = 'Registration Form'
+	<h1>::$man</h1>
+	<div class="form">
+		<?= FORM::open('contact', '/store', array('class' => 'small-form')) ?>
+		<ul>
+		    <li>		
+		    	<?= FORM::label('Username') ?>
+				<?= FORM::input('username', '', array('class' => 'username', 'id' => 'user')) ?>
+			</li>
+		    <li>		
+		    	<?= FORM::label('Password') ?>
+				<?= FORM::password('password') ?>
+			</li>
+			<li><?= FORM::submit('Send') ?></li>
+		</ul>
+		<?= FORM::close() ?>
+	</div>
 
-				::foreach($user->posts as $post)
-				<p>::$post->title</p>
-				::endforeach
-			</td>
-		</tr>
-
-		::endforeach
-		</tbody>
-	</table>
 ::end

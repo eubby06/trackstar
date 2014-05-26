@@ -1,16 +1,16 @@
 <?php namespace Core\MVC;
 
-use Core\Template\ColonEngine;
-
 class View
 {	
 	public $template;
 	public $data;
 	public $parser;
+	public $container;
 
-	public function __construct()
+	public function __construct($container)
 	{
-		$this->parser = new ColonEngine();
+		$this->parser = $container['colon.engine'];
+		$this->container = $container;
 	}
 
 	public function render()
@@ -22,7 +22,9 @@ class View
 			{
 				$$key = $value;
 			}
-		
+			
+			$session = $this->container['session'];
+
 			include $this->template;
 		}
 	}

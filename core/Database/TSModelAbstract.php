@@ -20,6 +20,19 @@ abstract class TSModelAbstract
 		$this->query 		= $this->_newQuery();
 	}
 
+	public function create($data = array())
+	{
+		$query = $this->_newQuery();
+
+		$id = $query->insert($this->table)
+					->data($data)
+					->execute();
+
+		$obj = $this->findById($id);
+
+		return $obj;
+	}
+
 	public function findById($id)
 	{
 		$query = $this->_newQuery();

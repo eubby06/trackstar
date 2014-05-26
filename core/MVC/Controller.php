@@ -1,7 +1,7 @@
 <?php namespace Core\MVC;
 
-use Core\Helper\Input;
-use Core\Helper\Session;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use App;
 
 class Controller
 {	
@@ -9,12 +9,15 @@ class Controller
 	protected $objects = array();
 	public $input;
 	public $session;
+	public $container;
 
 	public function __construct()
 	{
-		$this->view = new View();
-		$this->input = new Input();
-		$this->session = new Session();
+		$this->container = App::getContainer();
+
+		$this->view = $this->container['view'];
+		$this->input = $this->container['input'];
+		$this->session = $this->container['session'];
 	}
 
 	protected function model($name)
@@ -27,5 +30,12 @@ class Controller
 		}
 
 		return $this->objects[$id];
+	}
+
+	protected function redirect($url)
+	{
+		$response = new RedirectResponse($url);
+
+		$response->send();
 	}
 }
