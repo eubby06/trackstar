@@ -11,4 +11,9 @@ class Html
 	{
 		return '<link rel="stylesheet" href="' . str_replace('.', '/', $path) . '.css" >';
 	}
+
+	public static function h1($class, $text)
+	{
+		return '<h1 class="' . $class . '">' . $text . '</h1>';
+	}
 }

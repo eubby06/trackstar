@@ -86,8 +86,14 @@ class Request
 
 	public function checkRoute()
 	{
+		// get request verb
+		$verb = $this->request->getMethod();
+
+		// if method is not get, then check request against post routes
+		$routes = ($verb == "GET") ? Route::$gets : Route::$posts;
+
 		// check if there is route set up for the request
-		if( !array_key_exists($this->getPathInfo(), Route::$gets) )
+		if( !array_key_exists($this->getPathInfo(), $routes) )
 		{
 			// if there no route, try param route check
 			if(!$this->checkParamsInRoute())
@@ -99,7 +105,8 @@ class Request
 		else
 		{
 			// if there is route, then get controller and action
-			$route 	= Route::$gets[$this->getPathInfo()];
+			$route 	= $routes[$this->getPathInfo()];
+
 			$this->controller = $route['controller'];
 			$this->action = $route['action'];
 		}

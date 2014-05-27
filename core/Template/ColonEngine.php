@@ -237,12 +237,12 @@ class ColonEngine
 
 	public function getSectionContent($content, $section)
 	{
-		
 		$content = str_replace(array("\r", "\n"), " ", $content);
 
 		$nospaces = preg_replace("/\s+/", " ", $content);
-
-		preg_match('/::section\(\''.$section.'\'\)(.+)::end(\s|\W)/U', $nospaces, $matches);
+		
+		$pattern = '/::section\(\''.$section.'\'\)(.+)::end(\s|\W|\z)/U';
+		preg_match($pattern, $nospaces, $matches);
 
 		return isset($matches[1]) ? $matches[1] : false;
 	}

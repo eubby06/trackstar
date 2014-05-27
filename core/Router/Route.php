@@ -20,6 +20,21 @@ class Route
 		);
 	}
 
+	public static function post($uri, $controllerAction)
+	{
+		list($controller, $action) = explode('@', $controllerAction);
+
+		if( array_key_exists(strtolower($uri), self::$posts))
+		{
+			trigger_error('You cannnot declare route more than once!');
+		}
+
+		self::$posts[self::renameParams($uri)] = array(
+			'controller' => $controller,
+			'action' 	=> $action
+		);
+	}
+
 	public static function renameParams($uri)
 	{
 		return preg_replace("/\{\w+\}/", 'param', $uri);
