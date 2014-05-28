@@ -5,8 +5,11 @@ class User extends Base
 	protected $table = 'users';
 
 	public $rules = array(
-		'username' 		=> 'required',
-		'password' 		=> 'required'
+			'firstname' => 'required',
+			'lastname' 	=> 'required',
+			'email' 	=> 'required|email',
+			'username' 	=> 'required',
+			'password' 	=> 'required'
 		);
 
 	public function profile()

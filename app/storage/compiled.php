@@ -14,4 +14,16 @@
     </div>
   </div>
 </div><!-- /.navbar -->
-</div>  <?= FORM::open('registration', 'register', array('class' => 'form-signin')) ?> <?= HTML::h1('form-signin-heading', 'Please sign in') ?> <?= FORM::input('firstname', '', array('class' => 'input-block-level', 'placeholder' => 'First Name')) ?> <?= FORM::input('lastname', '', array('class' => 'input-block-level', 'placeholder' => 'Last Name')) ?> <?= FORM::input('username', '', array('class' => 'input-block-level', 'placeholder' => 'Username')) ?> <?= FORM::input('email', '', array('class' => 'input-block-level', 'placeholder' => 'Email address')) ?> <?= FORM::password('password', array('class' => 'input-block-level', 'placeholder' => 'Password')) ?> <?= FORM::submit('submit', 'Sign in', array('class' => 'btn btn-large btn-primary')) ?> <?= FORM::close() ?>  <div class="footer"><p>&copy; Company 2013</p></div> </div> </body> </html> 
+</div> <?php if($session->has('errors')): ?>
+	<div class="alert">
+	  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	  	<?php echo $session->errors; ?>
+	</div>
+<?php endif; ?>
+
+<?php if($session->has('success')): ?>
+	<div class="success">
+	  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	  	<?php echo $session->success; ?>
+	</div>
+<?php endif; ?>  <?= FORM::open('registration', 'register', array('class' => 'form-signin')) ?> <?= HTML::h1('form-signin-heading', 'Please sign in') ?> <?= FORM::input('firstname', '', array('class' => 'input-block-level', 'placeholder' => 'First Name')) ?> <?= FORM::input('lastname', '', array('class' => 'input-block-level', 'placeholder' => 'Last Name')) ?> <?= FORM::input('username', '', array('class' => 'input-block-level', 'placeholder' => 'Username')) ?> <?= FORM::input('email', '', array('class' => 'input-block-level', 'placeholder' => 'Email address')) ?> <?= FORM::password('password', array('class' => 'input-block-level', 'placeholder' => 'Password')) ?> <?= FORM::submit('submit', 'Sign in', array('class' => 'btn btn-large btn-primary')) ?> <?= FORM::close() ?>  <div class="footer"><p>&copy; Company 2013</p></div> </div> </body> </html> 

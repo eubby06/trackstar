@@ -32,6 +32,8 @@
 
     ::include('partials.header')
 
+    ::include('partials.errors')
+
     ::yield('content')
 
     ::include('partials.footer')

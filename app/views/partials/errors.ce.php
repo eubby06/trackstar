@@ -1,7 +1,13 @@
 ::if($session->has('errors'))
-	<div class="errors">::$session->errors</div>
+	<div class="alert">
+	  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	  	::$session->errors
+	</div>
 ::endif
 
 ::if($session->has('success'))
-	<div class="errors">::$session->success</div>
+	<div class="success">
+	  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	  	::$session->success
+	</div>
 ::endif
